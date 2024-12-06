@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Foto Alumni UNIKU</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Style untuk galeri */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .gallery img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .gallery img.show {
+            opacity: 1;
+        }
+        
+        /* Style untuk modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 5px;
+        }
+        .modal .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Galeri Foto Alumni UNIKU</h1>
+
+    <div class="gallery">
+        <div><img src="image/profil.jpg" alt="Alumni 1"></div>
+        <div><img src="image/foto1.jpg" alt="Alumni 2"></div>
+        <div><img src="image/foto2.jpg" alt="Alumni 3"></div>
+        <div><img src="image/alumni1.jpg" alt="Alumni 4"></div>
+        <div><img src="image/alumni2.jpg" alt="Alumni 5"></div>
+    </div>
+
+    <!-- Modal untuk menampilkan gambar penuh -->
+    <div class="modal" id="modal">
+        <span class="close" id="closeModal">&times;</span>
+        <img id="modalImage" src="" alt="Gambar Besar">
+    </div>
+
+    <script>
+        // Efek fade-in untuk semua gambar
+        $(document).ready(function() {
+            $(".gallery img").each(function(index) {
+                $(this).delay(index * 200).fadeTo(1000, 1);
+            });
+
+            // Ketika gambar diklik, tampilkan di dalam modal
+            $(".gallery img").click(function() {
+                var src = $(this).attr("src");
+                $("#modalImage").attr("src", src);
+                $("#modal").fadeIn();
+            });
+
+            // Tutup modal ketika klik tombol Close
+            $("#closeModal").click(function() {
+                $("#modal").fadeOut();
+            });
+
+            // Tutup modal jika klik di luar gambar
+            $("#modal").click(function(event) {
+                if (event.target === this) {
+                    $("#modal").fadeOut();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
